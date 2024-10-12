@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+name="$1"
+
+if [ -z "$name" ]; then
+  echo "One argument expected: module name"
+  exit 1
+fi
+
+if [ -f "./$name" ]; then
+  rm "./$name"
+fi
+
+go build "$name" >/dev/null
+
+echo "Run 1:"
+time "./$name" 2>/dev/null
+
+echo "-------------------------"
+
+echo "Run 2:"
+time "./$name" 2>/dev/null
