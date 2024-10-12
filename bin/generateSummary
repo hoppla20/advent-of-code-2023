@@ -8,7 +8,7 @@ if [ -f "$SUMMARY_FILE" ]; then
   rm "$SUMMARY_FILE"
 fi
 
-echo "# Time Summary
+echo "# Summary
 " >>"$SUMMARY_FILE"
 
 for part in $(find "$GIT_ROOT/src" -mindepth 2 -maxdepth 2 -type d | tac); do
