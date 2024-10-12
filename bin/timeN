@@ -13,10 +13,9 @@ fi
 
 go build "$name" >/dev/null
 
-echo "Run 1:"
-time "./$name" 2>/dev/null
+for i in {1..3}; do
+  echo "-------------------------"
 
-echo "-------------------------"
-
-echo "Run 2:"
-time "./$name" 2>/dev/null
+  echo "Run $i:"
+  time "./$name" 2>/dev/null
+done

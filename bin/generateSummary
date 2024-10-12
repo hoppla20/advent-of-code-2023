@@ -1,0 +1,27 @@
+#!/bin/sh -e
+
+GIT_ROOT="$(git rev-parse --show-toplevel)"
+
+SUMMARY_FILE="$GIT_ROOT/SUMMARY.md"
+
+if [ -f "$SUMMARY_FILE" ]; then
+  rm "$SUMMARY_FILE"
+fi
+
+echo "# Time Summary
+" >>"$SUMMARY_FILE"
+
+for part in $(find "$GIT_ROOT/src" -mindepth 2 -maxdepth 2 -type d); do
+  echo "## Module $(realpath -s --relative-to "$GIT_ROOT" "$part")
+
+\`\`\`" >>"$SUMMARY_FILE"
+
+  pushd "$part"
+  timeN "$(basename $(dirname "$part"))" >>"$SUMMARY_FILE" 2>&1
+  popd
+
+  echo "\`\`\`
+" >>"$SUMMARY_FILE"
+done
+
+cat "$SUMMARY_FILE"
