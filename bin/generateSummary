@@ -11,7 +11,7 @@ fi
 echo "# Time Summary
 " >>"$SUMMARY_FILE"
 
-for part in $(find "$GIT_ROOT/src" -mindepth 2 -maxdepth 2 -type d); do
+for part in $(find "$GIT_ROOT/src" -mindepth 2 -maxdepth 2 -type d | tac); do
   echo "## Module $(realpath -s --relative-to "$GIT_ROOT" "$part")
 
 \`\`\`" >>"$SUMMARY_FILE"
