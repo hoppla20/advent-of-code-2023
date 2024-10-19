@@ -15,7 +15,7 @@ echo "# Summary
 echo "## Go
 " >>"$SUMMARY_FILE"
 
-for part in $(find "$GO_ROOT/cmd" -mindepth 2 -maxdepth 2 -type d | sort); do
+for part in $(find "$GO_ROOT" -mindepth 2 -maxdepth 2 -type d -name "part*" | sort); do
   echo "### Module $(realpath -s --relative-to "$GO_ROOT" "$part")
 
 \`\`\`" >>"$SUMMARY_FILE"
