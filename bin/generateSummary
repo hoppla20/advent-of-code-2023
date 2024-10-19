@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 GIT_ROOT="$(git rev-parse --show-toplevel)"
 GO_ROOT="$GIT_ROOT/go"
@@ -15,19 +15,17 @@ echo "# Summary
 echo "## Go
 " >>"$SUMMARY_FILE"
 
-for part in $(find "$GO_ROOT/src" -mindepth 2 -maxdepth 2 -type d | tac); do
+for part in $(find "$GO_ROOT/cmd" -mindepth 2 -maxdepth 2 -type d | sort); do
   echo "### Module $(realpath -s --relative-to "$GO_ROOT" "$part")
 
 \`\`\`" >>"$SUMMARY_FILE"
 
   pushd "$part"
-  timeN "$(basename $(dirname "$part"))" >>"$SUMMARY_FILE" 2>&1
-  popd
+  timeGo >>"$SUMMARY_FILE" 2>&1
+  popd >/dev/null
 
   echo "\`\`\`
 " >>"$SUMMARY_FILE"
 done
-
-popd
 
 cat "$SUMMARY_FILE"
